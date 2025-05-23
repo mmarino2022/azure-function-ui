@@ -1,24 +1,81 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <title>Ejecutar Azure Function</title>
+  <meta charset="UTF-8">
+  <title>Ejecutar Proceso</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f6f9;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #0078D4;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #005a9e;
+    }
+
+    #resultado {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-  <h2>Ejecutar proceso por estudio</h2>
+  <div class="container">
+    <h2>Ejecutar Proceso</h2>
 
-  <label for="estudioSelect">Selecciona un estudio:</label>
-  <select id="estudioSelect">
-    <option value="1066|1">LINDLEY PERÚ</option>
-    <option value="1070|1">NESTLÉ PERÚ</option>
-    <option value="1080|2">COCA COLA CHILE</option>
-    <option value="1090|3">PIL ANDINA BOLIVIA</option>
-    <!-- Agrega tus otros estudios aquí con formato EstudioID|PaisID -->
-  </select>
+    <label for="estudioSelect">Selecciona un estudio:</label>
+    <select id="estudioSelect">
+      <option value="1066|1">LINDLEY PERÚ</option>
+      <option value="1070|1">NESTLÉ PERÚ</option>
+      <option value="1080|2">COCA COLA CHILE</option>
+      <option value="1090|3">PIL ANDINA BOLIVIA</option>
+      <!-- Agrega más opciones -->
+    </select>
 
-  <br><br>
-  <button onclick="enviarParametros()">Ejecutar</button>
-
-  <p id="resultado"></p>
+    <button onclick="enviarParametros()">Ejecutar</button>
+    <p id="resultado"></p>
+  </div>
 
   <script>
     function enviarParametros() {
