@@ -79,8 +79,16 @@
   </div>
 
   <script>
+    const resultado = document.getElementById("resultado");
+    const estudioSelect = document.getElementById("estudioSelect");
+
+    estudioSelect.addEventListener('change', () => {
+      // Ocultar mensaje cada vez que cambia la selección
+      resultado.innerText = "";
+    });
+
     function enviarParametros() {
-      const seleccion = document.getElementById("estudioSelect").value;
+      const seleccion = estudioSelect.value;
       const [EstudioID, PaisID] = seleccion.split('|');
 
       fetch("https://activarusuarios.azurewebsites.net/api/ejecutarjob", {
@@ -98,10 +106,10 @@
         return response.text();
       })
       .then(data => {
-        document.getElementById("resultado").innerText = "✅ Proceso lanzado con éxito. En aproximadamente 15 minutos los usuarios quedarán activados. Si hay mas activaciones en cola, el tiempo puede ser hasta de 1 hora";
+        resultado.innerText = "✅ Proceso lanzado con éxito. En aproximadamente 15 minutos los usuarios quedarán activados. Si hay mas activaciones en cola, el tiempo puede ser hasta de 1 hora";
       })
       .catch(error => {
-        document.getElementById("resultado").innerText = `❌ Error: ${error.message}`;
+        resultado.innerText = `❌ Error: ${error.message}`;
       });
     }
   </script>
