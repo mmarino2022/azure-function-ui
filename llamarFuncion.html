@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ejecutar Azure Function</title>
+  <script>
+    async function ejecutarFuncion() {
+      const estudioID = document.getElementById("estudioID").value;
+      const paisID = document.getElementById("paisID").value;
+
+      const response = await fetch("https://activarusuarios.azurewebsites.net/api/ejecutarjob", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          EstudioID: estudioID,
+          PaisID: parseInt(paisID)
+        })
+      });
+
+      const resultado = document.getElementById("resultado");
+
+      if (response.ok) {
+        resultado.textContent = "✅ ¡Ejecución exitosa!";
+      } else {
+        const text = await response.text();
+        resultado.textContent = `❌ Error ${response.status}: ${text}`;
+      }
+    }
+  </script>
+</head>
+<body>
+  <h2>Ejecutar Job en Azure</h2>
+  <label>EstudioID:</label><br>
+  <input type="text" id="estudioID" value="123"><br><br>
+  <label>PaisID:</label><br>
+  <input type="number" id="paisID" value="1"><br><br>
+  <button onclick="ejecutarFuncion()">Ejecutar</button>
+  <p id="resultado" style="font-weight: bold;"></p>
+</body>
+</html>
