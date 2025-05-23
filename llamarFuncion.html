@@ -2,40 +2,50 @@
 <html>
 <head>
   <title>Ejecutar Azure Function</title>
-  <script>
-    async function ejecutarFuncion() {
-      const estudioID = document.getElementById("estudioID").value;
-      const paisID = document.getElementById("paisID").value;
+</head>
+<body>
+  <h2>Ejecutar proceso por estudio</h2>
 
-      const response = await fetch("https://activarusuarios.azurewebsites.net/api/ejecutarjob", {
+  <label for="estudioSelect">Selecciona un estudio:</label>
+  <select id="estudioSelect">
+    <option value="1066|1">LINDLEY PERÚ</option>
+    <option value="1070|1">NESTLÉ PERÚ</option>
+    <option value="1080|2">COCA COLA CHILE</option>
+    <option value="1090|3">PIL ANDINA BOLIVIA</option>
+    <!-- Agrega tus otros estudios aquí con formato EstudioID|PaisID -->
+  </select>
+
+  <br><br>
+  <button onclick="enviarParametros()">Ejecutar</button>
+
+  <p id="resultado"></p>
+
+  <script>
+    function enviarParametros() {
+      const seleccion = document.getElementById("estudioSelect").value;
+      const [EstudioID, PaisID] = seleccion.split('|');
+
+      fetch("https://activarusuarios.azurewebsites.net/api/ejecutarjob", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          EstudioID: estudioID,
-          PaisID: parseInt(paisID)
+          EstudioID: EstudioID,
+          PaisID: parseInt(PaisID)
         })
+      })
+      .then(response => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.text();
+      })
+      .then(data => {
+        document.getElementById("resultado").innerText = "✅ Proceso ejecutado con éxito.";
+      })
+      .catch(error => {
+        document.getElementById("resultado").innerText = `❌ Error: ${error.message}`;
       });
-
-      const resultado = document.getElementById("resultado");
-
-      if (response.ok) {
-        resultado.textContent = "✅ ¡Ejecución exitosa!";
-      } else {
-        const text = await response.text();
-        resultado.textContent = `❌ Error ${response.status}: ${text}`;
-      }
     }
   </script>
-</head>
-<body>
-  <h2>Ejecutar Job en Azure</h2>
-  <label>EstudioID:</label><br>
-  <input type="text" id="estudioID" value="123"><br><br>
-  <label>PaisID:</label><br>
-  <input type="number" id="paisID" value="1"><br><br>
-  <button onclick="ejecutarFuncion()">Ejecutar</button>
-  <p id="resultado" style="font-weight: bold;"></p>
 </body>
 </html>
