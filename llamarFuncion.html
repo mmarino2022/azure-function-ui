@@ -98,7 +98,7 @@
         return response.text();
       })
       .then(data => {
-        document.getElementById("resultado").innerText = "✅ Proceso ejecutado con éxito.";
+        document.getElementById("resultado").innerText = "✅ Proceso lanzado con éxito. En aproximadamente 15 minutos los usuarios quedarán activados. Si hay mas activaciones en cola, el tiempo puede ser hasta de 1 hora";
       })
       .catch(error => {
         document.getElementById("resultado").innerText = `❌ Error: ${error.message}`;
